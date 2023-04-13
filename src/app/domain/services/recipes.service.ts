@@ -2,7 +2,7 @@ import { RecipeDomainModel } from '@domain/models/recipes.domain-model';
 import { Observable } from 'rxjs';
 
 export interface IRecipeService<
-  Entity extends RecipeDomainModel = RecipeDomainModel,
+  Entity extends RecipeDomainModel = RecipeDomainModel
 > {
   create(entity: Entity): Observable<Entity>;
 

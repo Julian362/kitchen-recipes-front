@@ -1,6 +1,7 @@
-import { IUserDomainModel } from '@domain/models';
+import { UserCredential } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+export interface IAuthService<Entity extends UserCredential = UserCredential> {
+  authCredentials(): Observable<Entity>;
 
-export interface IAuthService {
-  GoogleAuth(): Observable<IUserDomainModel>;
+  singOut(): Observable<void>;
 }

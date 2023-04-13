@@ -3,7 +3,6 @@ import {
   CreateIngredientUseCase,
   CreateMealPlannerUseCase,
   CreateRecipeUseCase,
-  CreateUserUseCase,
   DeleteMealPlannerUseCase,
   DeleteRecipeUseCase,
   DeleteUserUseCase,
@@ -12,12 +11,13 @@ import {
   GetIngredientUseCase,
   GetMealPlannerUseCase,
   GetRecipeUseCase,
-  GetUserUseCase,
+  LoginUseCase,
   UpdateIngredientUseCase,
   UpdateMealPlannerUseCase,
   UpdateRecipeUseCase,
 } from '@application/use-cases';
 import { GetAllRecipesUseCase } from '@application/use-cases/get/get-all-recipes.use-case';
+import { LogOutUseCase } from '@application/use-cases/security/logout.use-case';
 import {
   IIngredientService,
   IMealPlannerService,
@@ -51,9 +51,9 @@ export class Delegate implements IUseCase {
   toCreateMealPlanner(): void {
     this.delegate = new CreateMealPlannerUseCase(this.mealPlannerService);
   }
-  toCreateUser(): void {
-    this.delegate = new CreateUserUseCase(this.userService);
-  }
+  // toCreateUser(): void {
+  //   this.delegate = new CreateUserUseCase(this.userService);
+  // }
 
   toDeleteRecipe(): void {
     this.delegate = new DeleteRecipeUseCase(this.recipesService);
@@ -90,10 +90,13 @@ export class Delegate implements IUseCase {
   toGetRecipe(): void {
     this.delegate = new GetRecipeUseCase(this.recipesService);
   }
-  toGetUser(): void {
-    this.delegate = new GetUserUseCase(this.userService);
+  toLogin(): void {
+    this.delegate = new LoginUseCase(this.userService, this.authService);
   }
   toGetRecipesByUser(): void {
     this.delegate = new GetAllRecipesUseCase(this.recipesService);
+  }
+  toLogout(): void {
+    this.delegate = new LogOutUseCase(this.authService);
   }
 }

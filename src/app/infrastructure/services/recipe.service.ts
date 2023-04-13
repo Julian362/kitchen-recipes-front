@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IRecipeService } from '@domain/services/recipes.service';
 import { RecipesModel } from '@infrastructure/models/recipes.model';
-import { environment } from '@infrastructure/utils/env/host';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Injectable()
 export class RecipeService implements IRecipeService {
   constructor(private http: HttpClient) {}

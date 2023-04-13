@@ -4,15 +4,15 @@ import {
 } from '@application/use-cases/__mocks__/user-case.mock';
 import { UserDomainModel } from '@domain/models';
 import { Observable } from 'rxjs';
-import { GetUserUseCase } from '../get-user.use-case';
+import { LoginUseCase } from '../../security/login.use-case';
 
 describe('GetUserUseCase', () => {
-  let useCase: GetUserUseCase;
+  let useCase: LoginUseCase;
   let observable: Observable<UserDomainModel>;
   describe('execute', () => {
     beforeEach(() => {
       // Arrange
-      useCase = new GetUserUseCase(userServiceMock);
+      useCase = new LoginUseCase(userServiceMock);
       // Act
       observable = useCase.execute(getIdMock);
     });

@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { IUserDomainModel } from '@domain/models';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  UserCredential,
+} from '@angular/fire/auth';
 import { IAuthService } from '@domain/services/auth.service';
-import { Observable } from 'rxjs';
-
+import { from, Observable } from 'rxjs';
 @Injectable()
 export class AuthService implements IAuthService {
-  GoogleAuth(): Observable<IUserDomainModel> {
-    throw new Error('Method not implemented.');
+  constructor(private readonly auth: Auth) {}
+  authCredentials(): Observable<UserCredential> {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
+  }
+
+  singOut(): Observable<void> {
+    return from(this.auth.signOut());
   }
 }

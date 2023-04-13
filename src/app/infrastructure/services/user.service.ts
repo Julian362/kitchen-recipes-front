@@ -2,18 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUserService } from '@domain/services/user.service';
 import { UserModel } from '@infrastructure/models/user.model';
-import { environment } from '@infrastructure/utils/env/host';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class UserMService implements IUserService {
+export class UserService implements IUserService {
   constructor(private http: HttpClient) {}
 
-  create(entity: UserModel): Observable<UserModel> {
-    return this.http.post<UserModel>(`${environment.HOST}/user`, entity);
+  create(entity: UserModel): Observable<{
+    data: UserModel;
+    token: string;
+  }> {
+    return this.http.post<{
+      data: UserModel;
+      token: string;
+    }>(`${environment.HOST}/user`, entity);
   }
-  findById(id: string): Observable<UserModel> {
-    return this.http.get<UserModel>(`${environment.HOST}/user/${id}`);
+  findById(id: string): Observable<{
+    data: UserModel;
+    token: string;
+  }> {
+    return this.http
+      .get<{
+        data: UserModel;
+        token: string;
+      }>(`${environment.HOST}/user/${id}`)
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
   }
 
   delete(id: string): Observable<UserModel> {

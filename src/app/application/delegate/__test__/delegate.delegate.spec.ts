@@ -11,7 +11,7 @@ import {
   GetIngredientUseCase,
   GetMealPlannerUseCase,
   GetRecipeUseCase,
-  GetUserUseCase,
+  LoginUseCase,
   UpdateIngredientUseCase,
   UpdateMealPlannerUseCase,
   UpdateRecipeUseCase,
@@ -173,11 +173,11 @@ describe('Delegate', () => {
     });
     it('should call GetUserUseCase ', () => {
       //Act
-      delegate.toGetUser();
+      delegate.toLogin();
 
       //Assert
       expect(delegate).toBeDefined();
-      expect(delegate['delegate']).toBeInstanceOf(GetUserUseCase);
+      expect(delegate['delegate']).toBeInstanceOf(LoginUseCase);
     });
     it('should call GetIngredientUseCase ', () => {
       //Act
