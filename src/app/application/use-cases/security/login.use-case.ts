@@ -34,6 +34,7 @@ export class LoginUseCase implements IUseCase {
           }),
           map((user) => {
             localStorage.setItem('token', user.token);
+            localStorage.setItem('id', user.data._id ?? '');
             return {
               data: user.data,
               token: user.token,

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { MainRoutingModule } from '@presentation/modules/main/main-routing.module';
+import { TokenInterceptorInterceptor } from '@presentation/shared/interceptors/token-interceptor.interceptor';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { environment } from 'src/environments/environment';
@@ -15,6 +16,7 @@ import { AppComponent } from './pages/app/app.component';
   declarations: [AppComponent],
   imports: [
     InfrastructureModule,
+    MainRoutingModule,
     HttpClientModule,
     CommonModule,
     BrowserModule,
@@ -22,7 +24,13 @@ import { AppComponent } from './pages/app/app.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class MainModule {}

@@ -25,7 +25,7 @@ export class IngredientService implements IIngredientService {
     );
   }
   findAll(): Observable<IngredientModel[]> {
-    return this.http.get<IngredientModel[]>(`${environment.HOST}/ingredients`);
+    return this.http.get<IngredientModel[]>(`${environment.HOST}/ingredient`);
   }
   findByName(name: string): Observable<IngredientModel> {
     return this.http.get<IngredientModel>(

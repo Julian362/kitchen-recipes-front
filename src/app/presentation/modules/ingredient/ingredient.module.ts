@@ -1,21 +1,26 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IngredientComponent } from './components/ingredient/ingredient.component';
-import { CreateComponent } from './components/create/create.component';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AllComponent } from './components/all/all.component';
-import { DeleteComponent } from './components/delete/delete.component';
-
-
+import { CreateComponent } from './components/create/create.component';
+import { IndividualComponent } from './components/individual/individual.component';
+import { IngredientRoutingModule } from './ingredient-routing.module';
+import { IngredientComponent } from './pages/ingredient/ingredient.component';
 
 @NgModule({
   declarations: [
-    IngredientComponent,
     CreateComponent,
     AllComponent,
-    DeleteComponent
+    IngredientComponent,
+    IndividualComponent,
   ],
+
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    IngredientRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IngredientRoutingModule,
+  ],
 })
-export class IngredientModule { }
+export class IngredientModule {}

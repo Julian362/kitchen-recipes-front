@@ -1,0 +1,84 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+  <label for="name">Name:</label>
+  <input type="text" id="name" formControlName="name" />
+  <div
+    *ngIf="
+      recipeForm.get('name')?.invalid &&
+      (recipeForm.get('name')?.dirty || recipeForm.get('name')?.touched)
+    "
+  >
+    <div *ngIf="recipeForm.get('name')?.hasError('required')">
+      Name is required
+    </div>
+    <div *ngIf="recipeForm.get('name')?.hasError('maxlength')">
+      Name cannot exceed 50 characters
+    </div>
+  </div>
+
+  <label for="description">Description:</label>
+  <textarea id="description" formControlName="description"></textarea>
+  <div
+    *ngIf="
+      recipeForm.get('description')?.invalid &&
+      (recipeForm.get('description')?.dirty ||
+        recipeForm.get('description')?.touched)
+    "
+  >
+    Description is required
+  </div>
+
+  <label>Ingredients:</label>
+  <div formArrayName="ingredients">
+    <div *ngFor="let ingredient of ingredientForms.controls; let i = index">
+      <div [formGroupName]="i">
+        <input type="number" formControlName="amount" placeholder="Amount" />
+        <input
+          type="text"
+          formControlName="ingredientId"
+          placeholder="Ingredient ID"
+        />
+        <button type="button" (click)="removeIngredient(i)">Remove</button>
+      </div>
+    </div>
+    <button type="button" (click)="addIngredient()">Add Ingredient</button>
+  </div>
+
+  <label for="photoUrl">Photo URL:</label>
+  <input type="text" id="photoUrl" formControlName="photoUrl" />
+  <div
+    *ngIf="
+      recipeForm.get('photoUrl')?.invalid &&
+      (recipeForm.get('photoUrl')?.dirty || recipeForm.get('photoUrl')?.touched)
+    "
+  >
+    Photo URL is required
+  </div>
+
+  <label>Steps:</label>
+  <div formArrayName="steps">
+    <div *ngFor="let step of stepForms.controls; let i = index">
+      <input type="text" [formControlName]="i" placeholder="Step {{ i + 1 }}" />
+      <button type="button" (click)="removeStep(i)">Remove</button>
+    </div>
+    <button type="button" (click)="addStep()">Add Step</button>
+  </div>
+
+  <label for="notes">Notes:</label>
+  <textarea id="notes" formControlName="notes"></textarea>
+
+  <label for="servings">Servings:</label>
+  <input type="number" id="servings" formControlName="servings" />
+  <div
+    *ngIf="
+      recipeForm.get('servings')?.invalid &&
+      (recipeForm.get('servings')?.dirty || recipeForm.get('servings')?.touched)
+    "
+  >
+    Servings is required
+  </div>
+
+  <label for="nutritionInfo">Nutrition Info:</label>
+  <input type="text" id="nutritionInfo" formControlName="nutritionInfo" />
+
+  <button type="submit" [disabled]="recipeForm.invalid">Submit</button>
+</form>
