@@ -32,11 +32,11 @@
     <div *ngFor="let ingredient of ingredientForms.controls; let i = index">
       <div [formGroupName]="i">
         <input type="number" formControlName="amount" placeholder="Amount" />
-        <input
-          type="text"
-          formControlName="ingredientId"
-          placeholder="Ingredient ID"
-        />
+        <select formControlName="ingredientId" placeholder="Ingredient ID">
+          <option *ngFor="let item of ingredients" [value]="item._id">
+            {{ item.name }}
+          </option>
+        </select>
         <button type="button" (click)="removeIngredient(i)">Remove</button>
       </div>
     </div>

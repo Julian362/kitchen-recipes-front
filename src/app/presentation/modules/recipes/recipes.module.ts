@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AllComponent } from './components/all/all.component';
+import { SharedModule } from '@presentation/shared/shared.module';
+import { RecipeAllComponent } from './components/all/all.component';
 import { CreateComponent } from './components/create/create.component';
-import { IndividualComponent } from './components/individual/individual.component';
+import { IndividualRecipeComponent } from './components/individual/individual.component';
 import { RecipeComponent } from './pages/recipe/recipe.component';
 import { RecipesRoutingModule } from './recipes-routing.module';
 
@@ -11,13 +12,14 @@ import { RecipesRoutingModule } from './recipes-routing.module';
   declarations: [
     RecipeComponent,
     CreateComponent,
-    AllComponent,
-    IndividualComponent,
+    RecipeAllComponent,
+    IndividualRecipeComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     RecipesRoutingModule,
   ],
 })

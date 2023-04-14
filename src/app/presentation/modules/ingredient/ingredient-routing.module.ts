@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllComponent } from './components/all/all.component';
+import { IngredientAllComponent } from './components/all/all.component';
 import { CreateComponent } from './components/create/create.component';
-import { IndividualComponent } from './components/individual/individual.component';
+import { IndividualIngredientComponent } from './components/individual/individual.component';
 import { IngredientComponent } from './pages/ingredient/ingredient.component';
 
 const routes: Routes = [
@@ -16,11 +16,11 @@ const routes: Routes = [
       },
       {
         path: 'all',
-        component: AllComponent,
+        component: IngredientAllComponent,
       },
       {
         path: ':id',
-        component: IndividualComponent,
+        component: IndividualIngredientComponent,
       },
     ],
   },

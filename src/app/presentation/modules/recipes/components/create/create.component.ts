@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Delegate } from '@application/delegate';
 import { CreateRecipeCommand } from '@infrastructure/command';
+import { IngredientModel } from '@infrastructure/models/ingredient.model';
 
 @Component({
   selector: 'app-create-recipes',
@@ -9,11 +10,28 @@ import { CreateRecipeCommand } from '@infrastructure/command';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent {
+  searchTerm: string = '';
+
   recipeForm!: FormGroup;
+
+  ingredients: IngredientModel[] = [];
+  ingredientsFiltered: IngredientModel[] = [];
 
   constructor(private frm: FormBuilder, private readonly delegate: Delegate) {}
 
   ngOnInit() {
+    this.delegate.toGetAllIngredients();
+    this.delegate.execute().subscribe({
+      next: (res) => {
+        this.ingredients = res as IngredientModel[];
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
     this.recipeForm = this.frm.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', Validators.required],
@@ -60,9 +78,18 @@ export class CreateComponent {
       return;
     }
     this.delegate.toCreateRecipe();
-    const ingredients: CreateRecipeCommand = this.recipeForm.value.ingredients;
-    ingredients.userId = localStorage.getItem('id')!;
-    this.delegate.execute(this.recipeForm.value).subscribe({
+    const ingredients: CreateRecipeCommand = {
+      description: this.recipeForm.value.description,
+      ingredients: this.recipeForm.value.ingredients,
+      name: this.recipeForm.value.name,
+      notes: this.recipeForm.value.notes,
+      photoUrl: this.recipeForm.value.photoUrl,
+      servings: this.recipeForm.value.servings,
+      steps: this.recipeForm.value.steps,
+      nutritionInfo: this.recipeForm.value.nutritionInfo,
+      userId: localStorage.getItem('id')!,
+    };
+    this.delegate.execute(ingredients).subscribe({
       next: (res) => {
         console.log(res);
       },

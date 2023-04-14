@@ -5,10 +5,9 @@ import { Observable, tap } from 'rxjs';
 export class LogOutUseCase implements IUseCase {
   constructor(private readonly authService: IAuthService) {}
 
-  execute(_id: string): Observable<void> {
+  execute(): Observable<void> {
     return this.authService.singOut().pipe(
       tap(() => {
-        console.log('logout');
         localStorage.clear();
         sessionStorage.clear();
       })

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllComponent } from './components/all/all.component';
+import { RecipeAllComponent } from './components/all/all.component';
 import { CreateComponent } from './components/create/create.component';
-import { IndividualComponent } from './components/individual/individual.component';
+import { IndividualRecipeComponent } from './components/individual/individual.component';
 import { RecipeComponent } from './pages/recipe/recipe.component';
 
 const routes: Routes = [
@@ -15,12 +15,12 @@ const routes: Routes = [
         component: CreateComponent,
       },
       {
-        path: 'all',
-        component: AllComponent,
+        path: '',
+        component: RecipeAllComponent,
       },
       {
         path: ':id',
-        component: IndividualComponent,
+        component: IndividualRecipeComponent,
       },
     ],
   },

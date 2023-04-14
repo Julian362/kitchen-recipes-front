@@ -14,5 +14,5 @@ export interface IRecipeDomainModel {
   notes?: string;
   servings: number;
   nutritionInfo?: string;
-  userId: IUserDomainModel['_id'];
+  userId?: IUserDomainModel['_id'];
 }

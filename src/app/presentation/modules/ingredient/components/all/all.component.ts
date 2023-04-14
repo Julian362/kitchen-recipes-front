@@ -3,11 +3,11 @@ import { Delegate } from '@application/delegate';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
 
 @Component({
-  selector: 'app-all',
+  selector: 'ingredient-all',
   templateUrl: './all.component.html',
   styleUrls: ['./all.component.scss'],
 })
-export class AllComponent implements OnInit {
+export class IngredientAllComponent implements OnInit {
   ingredients!: IngredientModel[];
   constructor(private readonly delegate: Delegate) {}
 

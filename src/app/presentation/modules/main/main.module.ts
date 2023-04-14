@@ -3,6 +3,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { BrowserModule } from '@angular/platform-browser';
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { MainRoutingModule } from '@presentation/modules/main/main-routing.module';
@@ -30,6 +31,7 @@ import { AppComponent } from './pages/app/app.component';
       useClass: TokenInterceptorInterceptor,
       multi: true,
     },
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
   ],
   bootstrap: [AppComponent],
 })

@@ -8,6 +8,6 @@ export class CreateRecipeUseCase implements IUseCase {
   constructor(private readonly service: IRecipeService) {}
 
   execute(recipe: ICreateRecipeCommand): Observable<RecipeDomainModel> {
-    return this.service.create(recipe);
+    return this.service.create(recipe as RecipeDomainModel);
   }
 }

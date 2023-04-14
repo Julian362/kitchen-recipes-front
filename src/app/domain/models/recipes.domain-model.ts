@@ -6,11 +6,14 @@ export class RecipeDomainModel implements IRecipeDomainModel {
   _id?: string;
   name!: string;
   description!: string;
-  ingredients!: { amount: number; ingredientId: IngredientDomainModel['_id']; }[];
+  ingredients!: {
+    amount: number;
+    ingredientId: IngredientDomainModel['_id'];
+  }[];
   photoUrl!: string;
   steps!: string[];
   notes?: string;
   servings!: number;
   nutritionInfo?: string;
-  userId: UserDomainModel['_id'];
+  userId?: UserDomainModel['_id'];
 }
