@@ -22,7 +22,8 @@ export const ingredientServiceMock: IIngredientService = {
 };
 
 export const authServiceMock: IAuthService = {
-  GoogleAuth: jest.fn(),
+  authCredentials: jest.fn(),
+  singOut: jest.fn(),
 };
 export const mealPlannerServiceMock: IMealPlannerService = {
   create: jest.fn(),

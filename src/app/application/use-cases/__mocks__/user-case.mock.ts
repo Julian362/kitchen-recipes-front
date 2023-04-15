@@ -19,6 +19,8 @@ import {
   IRecipeService,
   IUserService,
 } from '@domain/services';
+import { IAuthService } from '@domain/services/auth.service';
+import { UserCredential } from 'firebase/auth';
 import { of, throwError } from 'rxjs';
 
 export const ingredientMock: IngredientDomainModel = {
@@ -145,6 +147,20 @@ export const userServiceMock: IUserService = {
   create: jest.fn().mockReturnValue(of(userMock)),
   delete: jest.fn().mockReturnValue(of(userMock)),
   findById: jest.fn().mockReturnValue(of(userMock)),
+};
+
+export const authServiceMock: IAuthService = {
+  authCredentials: jest.fn().mockReturnValue(
+    of({
+      user: {
+        uid: 'uid',
+        email: 'email',
+        displayName: 'displayName',
+        photoURL: 'photoURL',
+      },
+    } as UserCredential)
+  ),
+  singOut: jest.fn().mockReturnValue(of()),
 };
 
 export const recipeServiceMockNull: IRecipeService = {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IRecipeService } from '@domain/services/recipes.service';
 import { RecipesModel } from '@infrastructure/models/recipes.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class RecipeService implements IRecipeService {
   constructor(private http: HttpClient) {}

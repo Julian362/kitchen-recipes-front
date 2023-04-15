@@ -2,7 +2,6 @@ import {
   CreateIngredientUseCase,
   CreateMealPlannerUseCase,
   CreateRecipeUseCase,
-  CreateUserUseCase,
   DeleteMealPlannerUseCase,
   DeleteRecipeUseCase,
   DeleteUserUseCase,
@@ -18,6 +17,7 @@ import {
 } from '@application/use-cases';
 
 import { GetAllRecipesUseCase } from '@application/use-cases/get/get-all-recipes.use-case';
+import { LogOutUseCase } from '@application/use-cases/security/logout.use-case';
 import { Delegate } from '..';
 import {
   authServiceMock,
@@ -65,14 +65,6 @@ describe('Delegate', () => {
       //Assert
       expect(delegate).toBeDefined();
       expect(delegate['delegate']).toBeInstanceOf(CreateRecipeUseCase);
-    });
-    it('should call CreateUserUseCase ', () => {
-      //Act
-      delegate.toCreateUser();
-
-      //Assert
-      expect(delegate).toBeDefined();
-      expect(delegate['delegate']).toBeInstanceOf(CreateUserUseCase);
     });
   });
 
@@ -206,6 +198,23 @@ describe('Delegate', () => {
       delegate.execute();
       //Assert
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('security', () => {
+    it('should call login', () => {
+      //Act
+      delegate.toLogin();
+      //Assert
+      expect(delegate).toBeDefined();
+      expect(delegate['delegate']).toBeInstanceOf(LoginUseCase);
+    });
+    it('should call logOut', () => {
+      //Act
+      delegate.toLogout();
+      //Assert
+      expect(delegate).toBeDefined();
+      expect(delegate['delegate']).toBeInstanceOf(LogOutUseCase);
     });
   });
 });

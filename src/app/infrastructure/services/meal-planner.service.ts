@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IMealPlannerService } from '@domain/services/meal-planner.service';
 import { MealPlannerModel } from '@infrastructure/models/meal-planner.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class MealPlannerService implements IMealPlannerService {
   constructor(private http: HttpClient) {}

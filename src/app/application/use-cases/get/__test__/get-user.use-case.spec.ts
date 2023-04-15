@@ -1,4 +1,5 @@
 import {
+  authServiceMock,
   getIdMock,
   userServiceMock,
 } from '@application/use-cases/__mocks__/user-case.mock';
@@ -8,11 +9,14 @@ import { LoginUseCase } from '../../security/login.use-case';
 
 describe('GetUserUseCase', () => {
   let useCase: LoginUseCase;
-  let observable: Observable<UserDomainModel>;
+  let observable: Observable<{
+    data: UserDomainModel;
+    token: string;
+  }>;
   describe('execute', () => {
     beforeEach(() => {
       // Arrange
-      useCase = new LoginUseCase(userServiceMock);
+      useCase = new LoginUseCase(userServiceMock, authServiceMock);
       // Act
       observable = useCase.execute(getIdMock);
     });
@@ -23,6 +27,10 @@ describe('GetUserUseCase', () => {
     it('should return an observable', () => {
       // Assert
       expect(observable).toBeInstanceOf(Observable);
+    });
+    it('should call the service', () => {
+      // Assert
+      expect(authServiceMock.authCredentials).toBeCalled();
     });
     it('should call the service', () => {
       // Assert

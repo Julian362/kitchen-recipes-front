@@ -54,6 +54,7 @@
       "<rootDir>/docs/*",
       "<rootDir>/documentation/*",
       "<rootDir>/shared/*",
+      "<rootDir>/dist/*",
       "/index\\.ts$",
       "/enum\\.ts$",
       ".module\\.ts$",
@@ -62,7 +63,7 @@
       "main\\.js$",
       ".config\\.ts$",
       ".eslintrc\\.js$",
-      "secret\\.ts$"
+      "environment\\.ts$"
     ],
     "globalSetup": "jest-preset-angular/global-setup",
     "coverageDirectory": "../coverage",

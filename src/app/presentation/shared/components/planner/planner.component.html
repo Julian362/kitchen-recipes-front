@@ -1,0 +1,7 @@
+<h1>Planner</h1>
+<ul>
+  <li *ngFor="let ingredient of ingredientPlanner">
+    {{ ingredient.ingredient | ingredient | async }}
+    {{ ingredient.amount }}
+  </li>
+</ul>

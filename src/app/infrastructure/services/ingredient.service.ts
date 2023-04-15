@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IIngredientService } from '@domain/services/ingredient.service';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class IngredientService implements IIngredientService {
   constructor(private http: HttpClient) {}
