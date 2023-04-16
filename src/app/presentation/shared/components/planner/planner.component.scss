@@ -1,0 +1,55 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+$color-primary: #7CFFCB;
+$color-secondary: #63e1b5;
+$color-highlight: #b5f5e1;
+$color-accent: #4e9a83;
+$color-light: #d3fffa;
+$color-dark: #101e1a;
+$color-dark-light: #273b36;
+
+.dropdown {
+  a.nav-link.dropdown-toggle {
+    color: $color-dark;
+    &:hover {
+      color: $color-dark-light;
+    }
+  }
+
+  div.dropdown-menu {
+    background-color: $color-light;
+
+    h6.dropdown-header {
+      color: $color-dark;
+    }
+
+    a.dropdown-item {
+      color: $color-dark;
+      &:hover {
+        background-color: $color-highlight;
+        color: $color-dark-light;
+      }
+    }
+
+    .dropdown-divider {
+      border-top-color: $color-secondary;
+    }
+  }
+
+  div.navbar-nav {
+    a.nav-link {
+      color: $color-dark;
+      &:hover {
+        color: $color-secondary;
+      }
+    }
+  }
+}
+
+/* Anulación de colores de enlaces */
+a,
+a:hover,
+a:focus,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}

@@ -16,6 +16,8 @@ export class SwalService {
       icon: type,
       position: 'top-end',
       timer: 1500,
+      color: '#96C0B7',
+      showConfirmButton: false,
     });
   }
 }

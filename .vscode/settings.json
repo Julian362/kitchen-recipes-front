@@ -20,5 +20,5 @@
   },
   "peacock.color": "#166bc6",
   "jest.autoRun": "off",
-  "cSpell.words": ["swal", "Swal", "sweetalert"]
+  "cSpell.words": ["devkit", "swal", "Swal", "sweetalert"]
 }

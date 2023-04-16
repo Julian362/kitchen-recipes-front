@@ -12,10 +12,11 @@ import { SharedModule } from '@presentation/shared/shared.module';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { environment } from 'src/environments/environment';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './pages/app/app.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     InfrastructureModule,
     MainRoutingModule,
