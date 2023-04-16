@@ -96,7 +96,7 @@ export class CreateComponent {
         this.swal.toFire('Error', err.message, 'error');
       },
       complete: () => {
-        this.swal.toFire('Success', 'Recipe Created', 'success');
+        this.swal.toFire('Success', 'Receta creada', 'success');
         this.recipeForm.reset();
       },
     });

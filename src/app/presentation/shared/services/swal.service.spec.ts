@@ -29,9 +29,11 @@ describe('SwalService', () => {
 
       // Assert
       expect(SwalSpy).toHaveBeenCalledWith({
+        color: '#96C0B7',
         title: mockTitle,
         text: mockMessage,
         icon: mockType,
+        showConfirmButton: false,
         position: 'top-end',
         timer: 1500,
       });

@@ -1,23 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ AppComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
+    // Assert
     expect(component).toBeTruthy();
+  });
+
+  it('should contain app-navbar element', () => {
+    // Arrange
+
+    // Act
+    const appNavbarElement = fixture.nativeElement.querySelector('app-navbar');
+
+    // Assert
+    expect(appNavbarElement).toBeTruthy();
   });
 });

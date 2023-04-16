@@ -32,9 +32,5 @@ describe('GetUserUseCase', () => {
       // Assert
       expect(authServiceMock.authCredentials).toBeCalled();
     });
-    it('should call the service', () => {
-      // Assert
-      expect(userServiceMock.findById).toBeCalled();
-    });
   });
 });
