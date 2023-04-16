@@ -1,0 +1,83 @@
+.form-container {
+  background-color: #f7fff7;
+  padding: 20px;
+  border: 1px solid #7cffcb;
+  border-radius: 5px;
+  width: 70%;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.form-label {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #7cffcb;
+  background-color: transparent;
+  color: #333;
+}
+
+.ingredients-container {
+  margin-bottom: 20px;
+}
+
+.ingredient-form-group {
+  margin-bottom: 20px;
+}
+
+.ingredient-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-prepend {
+  margin-right: 10px;
+}
+
+.form-button {
+  background-color: #7cffcb;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:disabled {
+  background-color: #c7f7f4;
+  cursor: not-allowed;
+}
+
+.form-button:hover:not(:disabled) {
+  background-color: #55e4c4;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}

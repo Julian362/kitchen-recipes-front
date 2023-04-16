@@ -1,1 +1,11 @@
-<ingredient-one [id]="ingredient ?? ''"></ingredient-one>
+<div class="ingredient-card">
+  <div class="ingredient-details">
+    <h1 class="ingredient-name">
+      {{ ingredient.name }}
+    </h1>
+    <h1 class="ingredient-description">{{ ingredient.description }}</h1>
+  </div>
+  <div class="ingredient-image">
+    <img [src]="ingredient.photoUrl" width="400px" alt="ingredient photo" />
+  </div>
+</div>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +9,10 @@ import { timeout } from 'rxjs';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  id = localStorage.getItem('id');
+  localStorage(): boolean {
+    if (localStorage.getItem('id')) return true;
+    return false;
+  }
   constructor(
     private readonly delegate: Delegate,
     private readonly router: Router,
@@ -29,8 +31,7 @@ export class NavbarComponent {
           'Has cerrado sesión correctamente',
           'success'
         );
-        timeout(1000);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       },
     });
   }

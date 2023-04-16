@@ -1,9 +1,15 @@
-<div *ngFor="let ingredient of ingredients">
-  <h1>
-    <a [routerLink]="['/ingredient', ingredient._id]">
-      {{ ingredient.name }}
-    </a>
-  </h1>
-  <h1>{{ ingredient.description }}</h1>
-  <img [src]="ingredient.photoUrl" width="150px" alt="ingredient photo" />
+<div class="ingredient-container" *ngFor="let ingredient of ingredients">
+  <div class="ingredient-card">
+    <div class="ingredient-image">
+      <img [src]="ingredient.photoUrl" width="150px" alt="ingredient photo" />
+    </div>
+    <div class="ingredient-details">
+      <h1 class="ingredient-name">
+        <a [routerLink]="['/ingredient', ingredient._id]">{{
+          ingredient.name
+        }}</a>
+      </h1>
+      <h1 class="ingredient-description">{{ ingredient.description }}</h1>
+    </div>
+  </div>
 </div>

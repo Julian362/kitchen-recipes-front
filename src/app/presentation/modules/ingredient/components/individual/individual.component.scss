@@ -1,0 +1,25 @@
+.ingredient-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #f7fff7;
+  border: 1px solid #7cffcb;
+  border-radius: 5px;
+}
+
+.ingredient-details {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.ingredient-name {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.ingredient-description {
+  font-size: 16px;
+  color: #777;
+  margin: 10px 0;
+}

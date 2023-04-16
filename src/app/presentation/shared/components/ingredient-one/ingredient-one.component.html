@@ -1,7 +1,13 @@
-<hr />
-<div>
-  <h1>{{ ingredient.name }}</h1>
-  <h1>{{ ingredient.description }}</h1>
-  <img [src]="ingredient.photoUrl" width="150px" alt="ingredient photo" />
+<div class="row custom-bg-border">
+  <div class="col-md-1">
+    <img
+      [src]="ingredient.photoUrl"
+      width="80px"
+      alt="ingredient photo"
+      class="img-ingredient"
+    />
+  </div>
+  <div class="col-md-6 center">
+    <h2 class="text-info">{{ ingredient.name }}</h2>
+  </div>
 </div>
-<hr />

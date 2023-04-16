@@ -1,12 +1,24 @@
-<form [formGroup]="form" (ngSubmit)="create()">
-  <label for="name">Name</label>
-  <input id="name" type="text" formControlName="name">
+<form [formGroup]="form" (ngSubmit)="create()" class="form-container">
+  <label for="name" class="form-label">Name</label>
+  <input id="name" type="text" formControlName="name" class="form-input" />
 
-  <label for="description">Description</label>
-  <input id="description" type="text" formControlName="description">
+  <label for="description" class="form-label">Description</label>
+  <input
+    id="description"
+    type="text"
+    formControlName="description"
+    class="form-input"
+  />
 
-  <label for="photoUrl">Photo URL</label>
-  <input id="photoUrl" type="text" formControlName="photoUrl">
+  <label for="photoUrl" class="form-label">Photo URL</label>
+  <input
+    id="photoUrl"
+    type="text"
+    formControlName="photoUrl"
+    class="form-input"
+  />
 
-  <button type="submit" [disabled]="!form.valid">Submit</button>
+  <button type="submit" [disabled]="!form.valid" class="form-button">
+    Crear
+  </button>
 </form>

@@ -21,7 +21,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#"
+        <a class="nav-link" href="/"
           >Inicio <span class="sr-only">(current)</span></a
         >
       </li>
@@ -32,13 +32,14 @@
           id="ingredientesDropdown"
           role="button"
           data-toggle="dropdown"
+          data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
           Ingredientes
         </a>
         <div class="dropdown-menu" aria-labelledby="ingredientesDropdown">
-          <a class="dropdown-item" href="#">Agregar Ingrediente</a>
+          <a class="dropdown-item" [routerLink]="">Agregar Ingrediente</a>
           <a class="dropdown-item" href="#">Editar Ingrediente</a>
         </div>
       </li>
@@ -50,6 +51,7 @@
           role="button"
           data-toggle="dropdown"
           aria-haspopup="true"
+          data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           Recetas
@@ -62,12 +64,12 @@
     </ul>
   </div>
   <ul class="navbar-nav ml-auto">
-    <ng-container *ngIf="id">
+    <ng-container *ngIf="localStorage()">
       <li class="nav-item">
         <a class="nav-link" (click)="logOut()">Logout</a>
       </li>
     </ng-container>
-    <ng-container *ngIf="!id">
+    <ng-container *ngIf="!localStorage()">
       <li class="nav-item">
         <app-login></app-login>
       </li>
