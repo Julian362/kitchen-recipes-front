@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Delegate } from '@application/delegate';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
+import { SwalService } from '../../../../shared/services/swal.service';
 
 @Component({
   selector: 'ingredient-all',
@@ -9,7 +10,10 @@ import { IngredientModel } from '@infrastructure/models/ingredient.model';
 })
 export class IngredientAllComponent implements OnInit {
   ingredients!: IngredientModel[];
-  constructor(private readonly delegate: Delegate) {}
+  constructor(
+    private readonly delegate: Delegate,
+    private readonly swal: SwalService
+  ) {}
 
   ngOnInit() {
     this.delegate.toGetAllIngredients();
@@ -18,10 +22,7 @@ export class IngredientAllComponent implements OnInit {
         this.ingredients = res as IngredientModel[];
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
+        this.swal.toFire('Error', err.message, 'error');
       },
     });
   }

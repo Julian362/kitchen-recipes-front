@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Delegate } from '@application/delegate';
+import { SwalService } from '@presentation/shared/services/swal.service';
 import { IngredientModel } from '../../../../../infrastructure/models/ingredient.model';
 
 @Component({
@@ -12,7 +13,8 @@ export class IndividualIngredientComponent implements OnInit {
   ingredient: IngredientModel = new IngredientModel();
   constructor(
     private route: ActivatedRoute,
-    private readonly delegate: Delegate
+    private readonly delegate: Delegate,
+    private readonly swal: SwalService
   ) {}
   id = this.route.snapshot.paramMap.get('id');
   ngOnInit(): void {
@@ -22,7 +24,7 @@ export class IndividualIngredientComponent implements OnInit {
         this.ingredient = ingredient;
       },
       error: (error) => {
-        console.log(error);
+        this.swal.toFire('Error', error.message, 'error');
       },
     });
   }

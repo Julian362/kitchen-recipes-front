@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Delegate } from '@application/delegate';
 import { CreateRecipeCommand } from '@infrastructure/command';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
+import { SwalService } from '@presentation/shared/services/swal.service';
 
 @Component({
   selector: 'app-create-recipes',
@@ -17,7 +18,11 @@ export class CreateComponent {
   ingredients: IngredientModel[] = [];
   ingredientsFiltered: IngredientModel[] = [];
 
-  constructor(private frm: FormBuilder, private readonly delegate: Delegate) {}
+  constructor(
+    private frm: FormBuilder,
+    private readonly delegate: Delegate,
+    private readonly swal: SwalService
+  ) {}
 
   ngOnInit() {
     this.delegate.toGetAllIngredients();
@@ -26,10 +31,7 @@ export class CreateComponent {
         this.ingredients = res as IngredientModel[];
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
+        this.swal.toFire('Error', err.message, 'error');
       },
     });
     this.recipeForm = this.frm.group({
@@ -90,16 +92,13 @@ export class CreateComponent {
       userId: localStorage.getItem('id')!,
     };
     this.delegate.execute(ingredients).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
       error: (err) => {
-        console.log(err);
+        this.swal.toFire('Error', err.message, 'error');
       },
       complete: () => {
-        console.log('complete');
+        this.swal.toFire('Success', 'Recipe Created', 'success');
+        this.recipeForm.reset();
       },
     });
-    console.log(this.recipeForm.value);
   }
 }

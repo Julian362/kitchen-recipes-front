@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
+import { SwalService } from '@presentation/shared/services/swal.service';
 
 @Component({
   selector: 'ingredient-one',
@@ -13,7 +14,8 @@ export class IngredientOneComponent implements OnInit {
   @Input() id!: string;
   constructor(
     private readonly delegate: Delegate,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private readonly swal: SwalService
   ) {}
   ngOnInit(): void {
     this.getOneById(this.id);
@@ -26,10 +28,7 @@ export class IngredientOneComponent implements OnInit {
         this.ingredient = res as IngredientModel;
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
+        this.swal.toFire('Error', err.message, 'error');
       },
     });
   }

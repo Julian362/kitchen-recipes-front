@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Delegate } from '@application/delegate';
+import { SwalService } from '@presentation/shared/services/swal.service';
 
 @Component({
   selector: 'app-create',
@@ -10,7 +11,11 @@ import { Delegate } from '@application/delegate';
 export class CreateComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private frm: FormBuilder, private readonly delegate: Delegate) {}
+  constructor(
+    private frm: FormBuilder,
+    private readonly delegate: Delegate,
+    private readonly swal: SwalService
+  ) {}
 
   ngOnInit() {
     this.form = this.frm.group({
@@ -23,14 +28,12 @@ export class CreateComponent implements OnInit {
   create() {
     this.delegate.toCreateIngredient();
     this.delegate.execute(this.form.value).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
       error: (err) => {
-        console.log(err);
+        this.swal.toFire('Error', err.message, 'error');
       },
       complete: () => {
-        console.log('complete');
+        this.swal.toFire('Success', 'Ingrediente Creado', 'success');
+        this.form.reset();
       },
     });
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { RecipesModel } from '@infrastructure/models/recipes.model';
+import { SwalService } from '@presentation/shared/services/swal.service';
 
 @Component({
   selector: 'recipe-individual',
@@ -12,7 +13,8 @@ export class IndividualRecipeComponent {
   recipe!: RecipesModel;
   constructor(
     private readonly delegate: Delegate,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private readonly swal: SwalService
   ) {}
   ngOnInit(): void {
     this.getOneById(this.route.snapshot.paramMap.get('id')!);
@@ -25,10 +27,7 @@ export class IndividualRecipeComponent {
         this.recipe = res as RecipesModel;
       },
       error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('complete');
+        this.swal.toFire('Error', err.message, 'error');
       },
     });
   }

@@ -39,8 +39,10 @@
           Ingredientes
         </a>
         <div class="dropdown-menu" aria-labelledby="ingredientesDropdown">
-          <a class="dropdown-item" [routerLink]="">Agregar Ingrediente</a>
-          <a class="dropdown-item" href="#">Editar Ingrediente</a>
+          <a class="dropdown-item" href="/ingredient">Ver ingredientes</a>
+          <a class="dropdown-item" href="/ingredient/create"
+            >Agregar Ingrediente</a
+          >
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -57,12 +59,13 @@
           Recetas
         </a>
         <div class="dropdown-menu" aria-labelledby="recetasDropdown">
-          <a class="dropdown-item" href="#">Ver recetas</a>
-          <a class="dropdown-item" href="#">Editar recetas</a>
+          <a class="dropdown-item" href="/recipe">Ver recetas</a>
+          <a class="dropdown-item" href="/recipe/create">Crear recetas</a>
         </div>
       </li>
     </ul>
   </div>
+  <planner></planner>
   <ul class="navbar-nav ml-auto">
     <ng-container *ngIf="localStorage()">
       <li class="nav-item">
@@ -75,5 +78,4 @@
       </li>
     </ng-container>
   </ul>
-  <planner></planner>
 </nav>

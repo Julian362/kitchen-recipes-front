@@ -1,20 +1,53 @@
-<div *ngFor="let recipe of recipes">
-  <h1>
-    <a [routerLink]="['/recipe', recipe._id]">
-      {{ recipe.name }}
-    </a>
-  </h1>
-  <h1>{{ recipe.description }}</h1>
-  <h1>{{ recipe.servings }}</h1>
-  <img [src]="recipe.photoUrl" width="150px" alt="" />
-  <h1>{{ recipe.notes }}</h1>
-  <div>
-    <h1 *ngFor="let ingredient of recipe.ingredients">
-      <ingredient-one [id]="ingredient.ingredientId ?? ''"> </ingredient-one>
-    </h1>
+<div class="row row-cols-1 g-4">
+  <div class="col" *ngFor="let recipe of recipes">
+    <div class="card mb-3" style="width: 100%">
+      <div class="row g-0">
+        <div class="col-md-6">
+          <img
+            [src]="recipe.photoUrl"
+            class="card-img-top h-100 w-100"
+            alt=""
+          />
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a [routerLink]="['/recipe', recipe._id]">
+                {{ recipe.name }}
+              </a>
+            </h5>
+            <p class="card-text">{{ recipe.description }}</p>
+            <p class="card-text">
+              <small class="text-muted">Porciones:{{ recipe.servings }}</small>
+            </p>
+            <div>
+              <h6 class="card-subtitle mb-2 text-muted">Ingredientes:</h6>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item"
+                  *ngFor="let ingredient of recipe.ingredients"
+                >
+                  <ingredient-one
+                    [id]="ingredient.ingredientId ?? ''"
+                  ></ingredient-one>
+                </li>
+              </ul>
+            </div>
+            <h6 class="card-subtitle mb-2 text-muted">Preparación:</h6>
+            <ol class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let step of recipe.steps">
+                {{ step }}
+              </li>
+            </ol>
+            <button
+              class="btn btn-primary mt-3"
+              (click)="addMealPlanner(recipe)"
+            >
+              Agregar al Carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <h1>{{ recipe.steps }}</h1>
-  <button (click)="addMealPlanner(recipe)">Agregar al Meal Planner</button>
-  <br />
-  <hr />
 </div>
