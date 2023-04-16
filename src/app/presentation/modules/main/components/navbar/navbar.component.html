@@ -1,5 +1,12 @@
+<!-- NavbarComponent.html -->
 <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">
+    <img
+      src="../../../../../../assets/imgs/Logo_negro.png"
+      alt="Logo"
+      width="25px"
+    />
+  </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -15,51 +22,56 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#"
-          >Home <span class="sr-only">(current)</span></a
+          >Inicio <span class="sr-only">(current)</span></a
         >
       </li>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           href="#"
-          id="navbarDropdown"
+          id="ingredientesDropdown"
           role="button"
           data-toggle="dropdown"
           aria-haspopup="true"
-          data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           Ingredientes
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="ingredientesDropdown">
           <a class="dropdown-item" href="#">Agregar Ingrediente</a>
           <a class="dropdown-item" href="#">Editar Ingrediente</a>
-          <a class="dropdown-item" href="#">Eliminar Ingrediente</a>
         </div>
       </li>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
           href="#"
-          id="navbarDropdown"
+          id="recetasDropdown"
           role="button"
           data-toggle="dropdown"
-          data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
           Recetas
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Agregar Receta</a>
-          <a class="dropdown-item" href="#">Editar Receta</a>
-          <a class="dropdown-item" href="#">Eliminar Receta</a>
+        <div class="dropdown-menu" aria-labelledby="recetasDropdown">
+          <a class="dropdown-item" href="#">Ver recetas</a>
+          <a class="dropdown-item" href="#">Editar recetas</a>
         </div>
       </li>
     </ul>
-    <div class="navbar-nav" *ngIf="id">
-      <a class="nav-link" (click)="logOut()">Logout</a>
-    </div>
-    <planner></planner>
   </div>
+  <ul class="navbar-nav ml-auto">
+    <ng-container *ngIf="id">
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()">Logout</a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="!id">
+      <li class="nav-item">
+        <app-login></app-login>
+      </li>
+    </ng-container>
+  </ul>
+  <planner></planner>
 </nav>

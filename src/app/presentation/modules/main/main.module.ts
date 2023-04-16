@@ -12,11 +12,13 @@ import { SharedModule } from '@presentation/shared/shared.module';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { environment } from 'src/environments/environment';
+import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './pages/app/app.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, LoginComponent, LandingComponent],
   imports: [
     InfrastructureModule,
     MainRoutingModule,

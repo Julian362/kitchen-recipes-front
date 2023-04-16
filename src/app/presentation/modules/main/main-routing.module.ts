@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GoogleAuthGuard } from '@presentation/shared/guards';
+import { LandingComponent } from './components/landing/landing.component';
 const routes: Routes = [
   {
     path: 'ingredient',
@@ -20,11 +21,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => {
-      return import('../security/security.module').then(
-        (m) => m.SecurityModule
-      );
-    },
+    component: LandingComponent,
   },
 ];
 
