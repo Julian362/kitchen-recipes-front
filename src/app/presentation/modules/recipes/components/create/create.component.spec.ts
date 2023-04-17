@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Delegate } from '@application/delegate';
 import { CreateRecipeCommand } from '@infrastructure/command';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { CreateComponent } from './create.component';
 
 describe('CreateComponent', () => {
@@ -34,6 +34,7 @@ describe('CreateComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [CreateComponent],
+      imports: [ReactiveFormsModule, FormsModule],
       providers: [
         { provide: FormBuilder, useValue: new FormBuilder() },
         { provide: Delegate, useValue: mockDelegate },
@@ -122,5 +123,68 @@ describe('CreateComponent', () => {
     // Assert
     expect(spyDelegate).not.toHaveBeenCalled();
     expect(spySwal).not.toHaveBeenCalled();
+  });
+
+  it('should swal error if delegate throws error', () => {
+    // Arrange
+    const spyDelegate = jest.spyOn(mockDelegate, 'toCreateRecipe');
+    const spySwal = jest.spyOn(mockSwalService, 'toFire');
+    mockDelegate.execute.mockReturnValue(throwError(() => new Error('error')));
+
+    // Act
+    component.ngOnInit();
+
+    // Assert
+    expect(spySwal).toHaveBeenCalledWith('Error', 'error', 'error');
+  });
+
+  it('should OnSubmit call toCreateRecipe', () => {
+    // Arrange
+    const spyDelegate = jest.spyOn(mockDelegate, 'toCreateRecipe');
+    component.recipeForm = {
+      invalid: false,
+      value: {
+        name: 'name',
+        description: 'description',
+        photoUrl: 'photoUrl',
+        ingredients: [],
+        steps: [],
+      },
+      setValue: jest.fn(),
+    } as any;
+    jest
+      .spyOn(mockDelegate, 'execute')
+      .mockReturnValue(of({} as CreateRecipeCommand));
+
+    // Act
+    component.onSubmit();
+
+    // Assert
+    expect(spyDelegate).toHaveBeenCalled();
+  });
+
+  it('should call error swal if delegate throws error', () => {
+    // Arrange
+    const spySwal = jest.spyOn(mockSwalService, 'toFire');
+    component.recipeForm = {
+      invalid: false,
+      value: {
+        name: 'name',
+        description: 'description',
+        photoUrl: 'photoUrl',
+        ingredients: [],
+        steps: [],
+      },
+      setValue: jest.fn(),
+    } as any;
+    jest
+      .spyOn(mockDelegate, 'execute')
+      .mockReturnValue(throwError(() => new Error('error')));
+
+    // Act
+    component.onSubmit();
+
+    // Assert
+    expect(spySwal).toHaveBeenCalledWith('Error', 'error', 'error');
   });
 });

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Delegate } from '@application/delegate';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { CreateComponent } from './create.component';
 
 describe('CreateComponent', () => {
@@ -38,12 +38,6 @@ describe('CreateComponent', () => {
   });
 
   it('should create the component', () => {
-    // Arrange
-    // component and fixture are already initialized in beforeEach
-
-    // Act
-    // No action needed
-
     // Assert
     expect(component).toBeTruthy();
   });
@@ -61,5 +55,21 @@ describe('CreateComponent', () => {
     expect(delegateMock.toCreateIngredient).toHaveBeenCalled();
     expect(delegateMock.execute).toHaveBeenCalledWith(component.form.value);
     expect(swalMock.toFire).toHaveBeenCalledWith('Error', message, 'error');
+  });
+
+  it('should show success message on success', () => {
+    // Arrange
+    delegateMock.execute.mockReturnValueOnce(of({} as any));
+
+    // Act
+    component.create();
+
+    // Assert
+    expect(delegateMock.toCreateIngredient).toHaveBeenCalled();
+    expect(swalMock.toFire).toHaveBeenCalledWith(
+      'Success',
+      'Ingrediente Creado',
+      'success'
+    );
   });
 });

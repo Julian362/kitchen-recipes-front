@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { IngredientModel } from '@infrastructure/models/ingredient.model';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { IngredientOneComponent } from './ingredient-one.component';
 
 describe('IngredientOneComponent', () => {
@@ -73,6 +73,19 @@ describe('IngredientOneComponent', () => {
       expect(mockDelegate.execute).toHaveBeenCalledWith('1');
       expect(component.ingredient).toEqual(ingredientModel);
       expect(mockSwalService.toFire).not.toHaveBeenCalled();
+    });
+
+    it('should call SwalService toFire when the Delegate service returns an error response', () => {
+      // Arrange
+      mockDelegate.execute.mockReturnValue(throwError(() => Error));
+
+      // Act
+      component.getOneById('1');
+
+      // Assert
+      expect(mockDelegate.toGetIngredient).toHaveBeenCalled();
+      expect(mockDelegate.execute).toHaveBeenCalledWith('1');
+      expect(mockSwalService.toFire).toHaveBeenCalled();
     });
   });
 });

@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Delegate } from '@application/delegate';
+import { PlannerComponent } from '@presentation/shared/components/planner/planner.component';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
@@ -14,7 +15,7 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavbarComponent],
+      declarations: [NavbarComponent, PlannerComponent],
       providers: [
         {
           provide: Delegate,
@@ -63,7 +64,7 @@ describe('NavbarComponent', () => {
     const delegateSpy = jest.spyOn(delegate, 'toLogout');
     const executeSpy = jest
       .spyOn(delegate, 'execute')
-      .mockReturnValue(of({ message: 'Error' }));
+      .mockReturnValue(throwError(() => new Error('Error')));
     const swalSpy = jest.spyOn(swal, 'toFire');
 
     // Act
@@ -72,11 +73,7 @@ describe('NavbarComponent', () => {
     // Assert
     expect(delegateSpy).toHaveBeenCalled();
     expect(executeSpy).toHaveBeenCalled();
-    expect(swalSpy).toHaveBeenCalledWith(
-      'Success',
-      'Has cerrado sesión correctamente',
-      'success'
-    );
+    expect(swalSpy).toHaveBeenCalledWith('Error', 'Error', 'error');
   });
 
   it('should return true for localStorage() when "id" is present', () => {

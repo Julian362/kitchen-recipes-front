@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Delegate } from '@application/delegate';
+import { LoginComponent } from '../login/login.component';
 import { LandingComponent } from './landing.component';
 
 describe('LandingComponent', () => {
@@ -7,7 +9,13 @@ describe('LandingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingComponent],
+      declarations: [LandingComponent, LoginComponent],
+      providers: [
+        {
+          provide: Delegate,
+          useValue: {},
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LandingComponent);

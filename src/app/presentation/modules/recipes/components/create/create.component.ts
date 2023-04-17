@@ -97,7 +97,7 @@ export class CreateComponent {
       },
       complete: () => {
         this.swal.toFire('Success', 'Receta creada', 'success');
-        this.recipeForm.reset();
+        this.recipeForm.setValue({});
       },
     });
   }

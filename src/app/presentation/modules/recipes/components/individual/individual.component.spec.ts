@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { RecipesModel } from '@infrastructure/models/recipes.model';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { IndividualRecipeComponent } from './individual.component';
 
 describe('IndividualRecipeComponent', () => {
@@ -98,6 +98,20 @@ describe('IndividualRecipeComponent', () => {
       // Assert
       expect(mockDelegate.toGetRecipe).toHaveBeenCalled();
       expect(mockDelegate.execute).toHaveBeenCalledWith('1');
+    });
+
+    it('should a swal error message when the Delegate service returns an error', () => {
+      // Arrange
+      const error = new Error('Test error');
+      mockDelegate.execute.mockReturnValue(throwError(() => Error));
+
+      // Act
+      component.getOneById('1');
+
+      // Assert
+      expect(mockDelegate.toGetRecipe).toHaveBeenCalled();
+      expect(mockDelegate.execute).toHaveBeenCalledWith('1');
+      expect(mockSwalService.toFire).toHaveBeenCalled();
     });
   });
 });

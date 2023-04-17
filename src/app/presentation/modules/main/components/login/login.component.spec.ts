@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Delegate } from '@application/delegate';
 import { SwalService } from '@presentation/shared/services/swal.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -59,7 +59,7 @@ describe('LoginComponent', () => {
     const delegateSpy = jest.spyOn(delegate, 'toLogin');
     const executeSpy = jest
       .spyOn(delegate, 'execute')
-      .mockReturnValue(of({ message: 'Error' }));
+      .mockReturnValue(throwError(() => Error('Error')));
     const swalSpy = jest.spyOn(swal, 'toFire');
 
     // Act
@@ -68,6 +68,6 @@ describe('LoginComponent', () => {
     // Assert
     expect(delegateSpy).toHaveBeenCalled();
     expect(executeSpy).toHaveBeenCalled();
-    expect(swalSpy).toHaveBeenCalledWith('Success', 'Login success', 'success');
+    expect(swalSpy).toHaveBeenCalledWith('Error', 'Error', 'error');
   });
 });

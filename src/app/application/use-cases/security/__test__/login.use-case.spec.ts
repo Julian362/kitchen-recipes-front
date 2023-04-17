@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { UserDomainModel } from '@domain/models';
 import { of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -9,7 +10,6 @@ describe('LoginUseCase', () => {
   let authServiceMock: any;
 
   beforeEach(() => {
-    // Crear mocks para IUserService y IAuthService
     userServiceMock = {
       findById: jest.fn(),
       create: jest.fn(),
@@ -47,13 +47,11 @@ describe('LoginUseCase', () => {
     const result$ = loginUseCase.execute('123');
     result$
       .pipe(
-        // Assert (1st A: Arrange)
         switchMap((result) => {
           expect(result).toEqual({
             data: user,
             token: token,
           });
-          // Assert (2nd A: Act)
           expect(authServiceMock.authCredentials).toHaveBeenCalled();
           expect(userServiceMock.findById).toHaveBeenCalledWith(
             userCredential.user.uid
@@ -67,7 +65,6 @@ describe('LoginUseCase', () => {
       )
       .subscribe(
         () => {
-          // Assert (3rd A: Assert)
           expect(localStorage.getItem('token')).toBe(token);
           expect(localStorage.getItem('googleId')).toBe(user.googleId);
           expect(localStorage.getItem('id')).toBe(user._id);
@@ -77,5 +74,108 @@ describe('LoginUseCase', () => {
           done();
         }
       );
+  });
+
+  it('should create user data and token successfully', (done) => {
+    // Arrange
+    jest.spyOn(userServiceMock, 'findById').mockReturnValue(
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              message: 'User not found',
+            },
+          })
+      )
+    );
+
+    const userCredential = {
+      user: {
+        uid: '123',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        photoURL: 'https://example.com/photo.jpg',
+      },
+    };
+    jest
+      .spyOn(authServiceMock, 'authCredentials')
+      .mockReturnValue(of(userCredential));
+    const user: UserDomainModel = {
+      _id: '123',
+      googleId: userCredential.user.uid,
+      email: userCredential.user.email || '',
+      name: userCredential.user.displayName || '',
+      photoUrl: userCredential.user.photoURL || '',
+    };
+    const token = 'test-token';
+    jest.spyOn(userServiceMock, 'create').mockReturnValue(
+      of({
+        data: user,
+        token: token,
+      })
+    );
+
+    // Act
+    const result = loginUseCase.execute('123');
+
+    result.subscribe({
+      next: (result) => {
+        expect(result).toEqual({
+          data: user,
+          token: token,
+        });
+        expect(authServiceMock.authCredentials).toHaveBeenCalled();
+        expect(userServiceMock.findById).toHaveBeenCalledWith(user._id);
+        expect(userServiceMock.create).toHaveBeenCalledWith({
+          googleId: user.googleId,
+          email: user.email,
+          name: user.name,
+          photoUrl: user.photoUrl,
+        });
+        expect(localStorage.getItem('token')).toBe(token);
+        expect(localStorage.getItem('googleId')).toBe(user.googleId);
+        expect(localStorage.getItem('id')).toBe(user._id);
+        done();
+      },
+    });
+  });
+
+  it('should create user data and token successfully', (done) => {
+    // Arrange
+    jest.spyOn(userServiceMock, 'findById').mockReturnValue(
+      throwError(
+        () =>
+          new HttpErrorResponse({
+            error: {
+              message: 'error',
+            },
+          })
+      )
+    );
+
+    const userCredential = {
+      user: {
+        uid: '123',
+        email: 'test@example.com',
+        displayName: 'Test User',
+        photoURL: 'https://example.com/photo.jpg',
+      },
+    };
+    jest
+      .spyOn(authServiceMock, 'authCredentials')
+      .mockReturnValue(of(userCredential));
+    jest
+      .spyOn(userServiceMock, 'create')
+      .mockReturnValue(of(throwError(() => new Error('Error creating user'))));
+
+    // Act
+    const result = loginUseCase.execute('123');
+
+    result.subscribe({
+      error: (error) => {
+        expect(error).toBeInstanceOf(HttpErrorResponse);
+        done();
+      },
+    });
   });
 });

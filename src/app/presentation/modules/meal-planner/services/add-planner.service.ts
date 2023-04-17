@@ -31,13 +31,10 @@ export class AddPlannerService {
     } else {
       this.mealPlannerNow.next(mealPlanner);
 
-      this.getMealPlannerActual().subscribe((mealPlanner) => {
-        console.log(mealPlanner, 'funciona');
-      });
+      this.getMealPlannerActual().subscribe();
     }
   }
 
-  // Método para obtener el mealPlanner actual
   getMealPlannerActual() {
     return this.mealPlannerNow.asObservable();
   }
